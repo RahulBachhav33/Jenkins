@@ -1,0 +1,78 @@
+build >> install maven 3.9.0
+project >> gameoflife form git
+server >> install apache tomcat server apache-tomcat-9.0.108 and apache-tomcat-11.0.10 (to run jenkins)
+
+war >> copy gameoflife.war file 
+
+
+install java also
+
+server/apache-tomcat-9.0.108/webapps
+
+install java-1.8.0-openjdk-devel -y
+
+
+1 >> create "build" dorectory in /mnt folder and install maven 3.9.0 in it 
+
+wget https://archive.apache.org/dist/maven/maven-3/3.9.0/binaries/apache-maven-3.9.0-bin.zip 
+unzip apache-maven-3.9.0-bin.zip
+rm -rf apache-maven-3.9.0-bin.zip
+     
+set environment variables in .bash_profile
+
+# vim  .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup program
+PATH=$PATH:$HOME/bin
+export MAVEN_HOME=/mnt/build/apache-maven-3.9.0
+export PATH=$MAVEN_HOME/bin:$PATH
+
+-------------------------------------------------------------------
+ 
+2 >> create "project" folder in /mnt folder 
+
+clone the gameoflife source code form git 
+
+git clone https://github.com/legend6664/game-of-life.git
+
+befor running the below coomand run "sudo su -"
+
+# cd game-of-life
+# mvn
+# mvn clean install 
+
+above command will test and build the soyrce code and create a war file 
+
+\the war file is in the path /mnt/project/game-of-life/gameoflife-web/target
+
+and copy that war file at /mnt/server/apache-tomcat-9.0.108/webapps
+ 
+-----------------------------------------------------------------------
+
+3 >> create "server" folder in /mnt and install apache tomcat server in it
+
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.108/bin/apache-tomcat-9.0.108.zip
+
+unzip apache-tomcat-9.0.108.zip
+rm -rf apache-tomcat-9.0.108.zip
+
+/mnt/server/apache-tomcat-9.0.108/bin
+chmod -R 777 /mnt
+
+and start the apache tomcat server # ./startup.sh
+
+
+browse the http://13.201.0.226:8080/gameoflife/ 
+
+
+
+By using above steps we have done the ci/cd manually  
+
+
+
+
